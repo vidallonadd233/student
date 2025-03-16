@@ -1,0 +1,99 @@
+body {
+    background-image: url('/image/picture5.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Adjust logo image */
+
+
+/* Form container */
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide number input arrows (Firefox) */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+.form-control, .form-select {
+    border: none;
+    border-bottom: 1px solid #050505; /* Bottom border */
+    border-radius: 0;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+.form-control:focus, .form-select:focus {
+    border-bottom: 1px solid #18191a; /* Darker color on focus */
+    box-shadow: none;
+}
+
+.btn-success {
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+
+
+
+
+.btn-success:hover {
+    background-color: #0056b3;
+}
+
+.custom-link{
+    text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        border-radius: 10px;
+    }
+
+    .img-logo {
+        max-width: 60%;
+    }
+
+
+    @media (max-width: 576px) {
+        .card {
+            width: 95% !important; /* Reduce card width */
+            margin: auto;
+        }
+        .img-logo {
+            max-width: 80px !important; /* Reduce logo size */
+        }
+        .form-control {
+            padding: 12px !important;
+            font-size: 14px !important;
+        }
+        .btn {
+            width: 100% !important; /* Make button full-width */
+        }
+        .position-relative i {
+            right: 10px !important;
+        }
+}
+}

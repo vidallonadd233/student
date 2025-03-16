@@ -1,0 +1,92 @@
+/* General Styles */
+body {
+    background-image: url('/image/picture5.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Side (Logo Section) */
+.col-md-6.bg-light {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f1f1f1;
+}
+
+/* Logo */
+
+
+/* Right Side (Form Section) */
+h3 {
+    color: #198754;
+    font-weight: normal;
+}
+
+/* Form Controls */
+.form-group label {
+    font-weight: 600;
+    color: #333;
+}
+
+.form-control {
+    border: none;
+    border-bottom: 1px solid #050505; /* Bottom border */
+    border-radius: 0;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    padding: 8px; /* Add padding for better spacing */
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-bottom: 1px solid #18191a; /* Darker border on focus */
+    box-shadow: none;
+    outline: none;
+}
+
+
+/* Submit Button */
+.btn-success {
+    border-radius: 8px;
+    transition: 0.3s;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.btn-success:hover {
+    background-color: #157347;
+}
+
+/* Forgot Password Link */
+.text-success {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.text-success:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        border-radius: 10px;
+    }
+
+    .img-fluid {
+        max-width: 60%;
+    }
+}

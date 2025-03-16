@@ -1,0 +1,10 @@
+.table{
+    border: solid white;
+
+}
+.table thead th{
+    font-weight: normal;
+    text-align: center;
+    justify-content: center;
+
+}

@@ -1,0 +1,35 @@
+.map-container {
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: 20px;
+
+}
+
+.card {
+    border: none;
+    border-radius: 10px; /* Smoothened corners for a more modern look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
+}
+
+/* Map dimensions and appearance */
+#map {
+    height: 400px;
+    width: 200%;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adding shadow for map */
+}
+
+.text-center {
+    font-weight: 600;
+    text-transform: uppercase; /* Emphasize header */
+}
+
+
+
+
+
+/* Added responsiveness */
+@media (max-width: 768px) {
+    #map {
+        height: 300px; /* Reduce map size on smaller screens */
+    }
+}

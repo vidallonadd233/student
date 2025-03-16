@@ -1,0 +1,74 @@
+#calendar {
+    width: 80%;
+    max-width: 1200px;
+    height: 600px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-weight:  normal;
+}
+.fc-title, .fc-content {
+    font-weight: normal !important;
+}
+
+#mothyear h2{
+    font-weight: normal;
+    font-size: 1.2rem;
+}
+.calendar-header, .calendar-cell {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+.calendar-header {
+    font-weight: normal;
+    background-color: #f8f9fa;
+}
+.calendar-cell:hover {
+    background-color: #e9ecef;
+    cursor: pointer;
+}
+
+/* Ensure modal content is well-spaced */
+.modal-content {
+    max-width: 100px;
+    border-radius: 10px;
+}
+
+/* Proper spacing for form fields */
+.modal-body .form-label {
+    font-weight: 300;
+    font-size: 1.0rem;
+}
+
+.modal-body .form-control {
+    border-radius: 5px;
+    font-size: 1.0rem;
+
+}
+.btn-success{
+    align-items: center;
+}
+/* Adjust width of date and time inputs */
+.w-45 {
+    width: 48%; /* Ensures spacing between date and time fields */
+}
+
+/* Ensure modal responsiveness */
+@media (max-width: 576px) {
+    .d-flex.justify-content-between {
+        flex-direction: column;
+    }
+
+    .w-45 {
+        width: 100%;
+    }
+}
+
+/* Button styling */
+.btn-success {
+    width: 100%;
+    font-weight: normal;
+}
+

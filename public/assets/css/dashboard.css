@@ -1,0 +1,101 @@
+/* General Container Styling */
+.container {
+  padding: 20px;
+}
+
+/* Card Styling */
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 1.0rem ;
+}
+.card .card-body {
+  padding: 20px;
+}
+.card .card-title {
+  font-weight: normal;
+  font-size: 16px;
+
+}
+.card .card-text {
+  font-size: 1.0rem;
+  font-weight: 100;
+
+}
+.card i {
+  font-size: 28px;
+}
+
+/* Colors for Cards */
+.card.bg-success {
+  background-color: #28a745 !important;
+}
+.card.bg-success .card-title,
+.card.bg-success .card-text {
+  color: #fff !important;
+}
+
+/* Chart Section Styling */
+.card-header {
+  background-color: #f8f9fa;
+  font-size: 1.0rem;
+  font-weight: normal;
+  padding: 1.2rem;
+  max-width: 100px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+
+.card-header h1{
+  font-weight: normal;
+}
+
+.card {
+  border: 1px solid #ddd; /* Light border for better definition */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  overflow: hidden; /* Ensure content stays within card bounds */
+}
+
+.card-header {
+  background-color: #f8f9fa; /* Light grey background */
+  padding: 10px; /* Space around header text */
+  border-bottom: 1px solid #ddd; /* Border separating header */
+}
+
+.card-header h1 {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #333; /* Dark text for contrast */
+  margin: 0; /* Remove extra spacing */
+}
+
+.card-body {
+  padding: 15px; /* Add space around the canvas */
+  display: flex;
+  justify-content: center; /* Center the chart inside */
+  align-items: center; /* Align the chart vertically */
+  background-color: #fff; /* White background for content */
+}
+
+
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+  .card {
+      margin-bottom: 20px;
+  }
+  .card i {
+      font-size: 24px;
+  }
+  .card .card-text {
+      font-size: 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  .row {
+      margin-top: 20px;
+  }
+}

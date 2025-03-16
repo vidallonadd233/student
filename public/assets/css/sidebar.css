@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    font-weight: 800;
+}
+
+.main {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+#sidebar {
+    max-width: 264px;
+    min-width: 264px;
+    transition: all 0.35s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar.collapsed {
+    margin-left: -264px;
+}
+.profile-details{
+    display: flex;
+    float: right;
+margin-left: 85%;
+}
+
+.toggler-btn {
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+}
+
+.toggler-btn i {
+    font-size: 1.75rem;
+    color: #000;
+}
+
+.navbar {
+    padding: 1.15rem 1.5rem;
+
+}
+
+.sidebar-nav {
+    flex: 1 1 auto;
+    font-size: 1.05rem;
+    list-style-type: none;
+    margin: auto;
+}
+.sidebar-item{
+    position: relative;
+    bottom: 10px    ;
+    padding: 0.89rem;
+}
+
+.sidebar-logo {
+    padding: 1.15rem 1.5rem;
+    text-align: center;
+}
+
+.sidebar-logo a {
+    color: #FFF;
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+
+.sidebar-header {
+    color: #FFF;
+    font-size: 0.75rem;
+
+}
+
+a.sidebar-link {
+    padding: .625rem 1.625rem;
+    color: #FFF;
+    position: relative;
+    transition: all 0.35s;
+    display: block;
+    font-size: 1.25rem;
+}
+
+/* Style the dropdown menu container */
+.sidebar-item.dropdown {
+    position: relative;
+  }
+/* Remove white background for the dropdown menu */
+.sidebar-item .dropdown-menu {
+    background-color: transparent; /* Set to transparent to remove white background */
+    border: none; /* Optional: Remove border */
+    box-shadow: none; /* Optional: Remove box-shadow if present */
+}
+
+/* Optional: Change the hover background color for items */
+.sidebar-item .dropdown-item:hover {
+    background-color: rgba(40, 167, 69, 0.1); /* Change to desired color on hover */
+}
+
+/* Optional: Adjust the text color for visibility */
+.sidebar-item .dropdown-item {
+    color: white; /* Ensure text is white */
+}
+
+/* Optional: Change the background color of the dropdown toggle when hovering */
+.sidebar-item .dropdown-toggle:hover {
+    background-color: rgba(40, 167, 69, 0.1); /* Adjust the hover background */
+}
+
+
+
+
+  /* Style the dropdown link (Archive) */
+  .sidebar-item .dropdown-toggle {
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: background-color 0.3s;
+  }
+
+  /* Hover effect on the dropdown link */
+  .sidebar-item .dropdown-toggle:hover {
+    background-color: #28a745; /* Customize as needed */
+    color: white;
+  }
+
+  /* Style the dropdown menu */
+  .sidebar-item .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    text-align: center;
+    margin-left: 20px;
+    min-width: 160px;
+    border-radius: 5px;
+    padding: 10px 0;
+    display: none;
+    z-index: 10;
+  }
+
+  /* Show dropdown menu when hovered */
+  .sidebar-item:hover .dropdown-menu {
+    display: block;
+  }
+
+  /* Style the dropdown item */
+  .sidebar-item .dropdown-item {
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  /* Hover effect on the dropdown item */
+  .sidebar-item .dropdown-item:hover {
+    color: white;
+  }
+
+  /* Style the icons in the dropdown */
+  .sidebar-item .dropdown-item i {
+    margin-right: 10px;
+    font-size: 16px;
+  }
+
+  /* Optional: Add some spacing between dropdown items */
+  .sidebar-item .dropdown-item + .dropdown-item {
+    margin-top: 5px;
+  }
+
+
+
+
+a.sidebar-link:hover {
+    background-color: #f9f6f630;
+}
+
+a.sidebar-link.collapsed::after {
+    transform: rotate(45deg);
+    transition: all .2s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar-toggle {
+        margin-left: -264px;
+    }
+
+    #sidebar.collapsed {
+        margin-left: 0;
+    }
+}

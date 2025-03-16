@@ -1,0 +1,108 @@
+/* Header Styling */
+header {
+    background-color: #05a024; /* Dark background for the header */
+    padding: 10px 0; /* Add padding to top and bottom of the header */
+}
+    
+/* Navbar */
+.navbar {
+    box-shadow: 0 2px 5px rgba(13, 193, 64, 0.915); /* Subtle shadow for the navbar */
+    padding: 0.5rem 1rem; /* Add padding inside the navbar */
+}
+
+/* Logo */
+.navbar-brand img {
+    max-height: 50px;
+    object-fit: cover;
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem;
+    color: white !important;
+    transition: color 0.3s ease;
+}
+
+/* Active Link */
+.navbar-nav .nav-link.active {
+    color: #f0a500 !important; /* Highlight active link in gold */
+    font-weight: bold;
+}
+
+/* Navbar Item Hover */
+.navbar-nav .nav-link:hover {
+    color: #f0a500 !important;
+}
+
+/* Notification Bell Icon */
+.nav-item .bi-bell {
+    font-size: 1.5rem;
+}
+
+/* Badge Styling */
+.nav-item .badge {
+    font-size: 0.8em;
+    padding: 0.2em 0.5em;
+    top: 0;
+    right: 0;
+}
+
+/* Profile Dropdown */
+.nav-item .dropdown-menu {
+    border-radius: 10px;
+}
+
+/* Dropdown Item Styling */
+.nav-item .dropdown-item {
+    color: #333;
+    padding: 10px 20px;
+}
+
+/* Dropdown Item Hover */
+.nav-item .dropdown-item:hover {
+    background-color: #f0a500;
+    color: white;
+}
+
+/* Navbar Toggler Button */
+.navbar-toggler {
+    border-color: #f0a500;
+}
+
+.navbar-toggler-icon {
+    background-color: #f0a500;
+}
+
+/* Adjust Dropdown Menu Position on Mobile */
+@media (max-width: 768px) {
+    .navbar-nav {
+        text-align: center;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 10px;
+    }
+}
+
+/* Additional Padding for Navbar */
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Customizing Navbar Dropdown for Mobile */
+.navbar-collapse {
+    padding: 0.5rem;
+}
+
+/* Custom logo alignment and navbar padding for small screens */
+@media (max-width: 768px) {
+    .navbar-brand {
+        margin-left: 0;
+        padding-left: 15px;
+    }
+
+    .navbar-toggler {
+        margin-right: 15px;
+    }
+}

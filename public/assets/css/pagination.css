@@ -1,0 +1,23 @@
+/* custom-styles.css */
+
+/* Custom Pagination Styles */
+.pagination .page-link {
+    color: #28a745; /* Green color for pagination links */
+    text-align: center;
+    font-size: 1.0rem;
+}
+
+.pagination .page-link:hover {
+    color: #218838; /* Darker green on hover */
+    background-color: #e2e6ea; /* Light gray background on hover */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #28a745; /* Green background for active page */
+    border-color: #28a745; /* Green border for active page */
+    color: white; /* White text color for active page */
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d; /* Gray color for disabled links */
+}

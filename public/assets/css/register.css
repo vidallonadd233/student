@@ -1,0 +1,204 @@
+body {
+
+
+    background: url('/image/picture5.jpg') no-repeat center center;
+    background-size: contain;
+    background-position: center;
+    background-size: cover;
+   min-width: 100px;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full height of the viewport */
+}
+
+.box-area {
+    max-width: 500px;
+    margin: auto;
+}
+
+
+.logo-container img {
+    width: 50%; /* Default width */
+    max-width: 200px; /* Para hindi lumaki masyado sa large screens */
+    height: auto; /* Para hindi ma-distort ang image */
+}
+.card {
+    border: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide number input arrows (Firefox) */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+
+
+.card .form-floating > label {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+
+.card .form-check-label {
+    margin-left: 5px;
+    color: #6c757d;
+}
+
+.password-toggle {
+    position: relative;
+}
+
+
+.form-control, .form-select {
+    border: none;
+    border-bottom: 1px solid #050505; /* Blue bottom border */
+    border-radius: 0;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+.form-control:focus, .form-select:focus {
+    border-bottom: 1px  #18191a; /* Darker blue on focus */
+    box-shadow: none;
+}
+
+.password-toggle .toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: #6c757d;
+}
+
+.card .btn-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.card .btn-success:hover {
+    background-color: #157347;
+    border-color: #146c43;
+}
+
+.invalid-feedback {
+    font-size: 0.875em;
+    color: #dc3545;
+}
+/* Responsive Design */
+
+
+
+@media (max-width: 768px) {
+
+    .container{
+        padding: 0 20px;
+        font-size: 0.9rem;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .form-control, .form-select {
+        font-size: 14px;
+    }
+
+    .password-toggle .toggle-icon {
+        font-size: 18px;
+        right: 10px;
+    }
+    .box-area {
+        max-width: 500px;
+        margin: auto;
+    }
+    .btn-success {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    /* Logo Resizing */
+    .logo-container img {
+        width: 30% !important;
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        background-size: cover;
+    }
+    .box-area {
+        max-width: 500px;
+        margin: auto;
+    }
+    .card {
+        padding: 10px;
+        box-shadow: none;
+    }
+
+    .form-control, .form-select {
+        font-size: 12px;
+    }
+
+    .password-toggle .toggle-icon {
+        font-size: 16px;
+        right: 8px;
+    }
+
+    .btn-success {
+        font-size: 13px;
+        padding: 6px;
+    }
+
+    /* Adjust Logo for Small Screens */
+    .logo-container img {
+        width: 20% !important;
+    }
+}
+
+/* Extra Small Devices (320px) */
+@media (max-width: 320px) {
+
+
+    .box-area {
+        max-width: 500px;
+        margin: auto;
+    }
+
+    .card {
+        padding: 8px;
+    }
+
+    .form-control, .form-select {
+        font-size: 11px;
+    }
+
+    .password-toggle .toggle-icon {
+        font-size: 14px;
+        right: 5px;
+    }
+
+    .btn-success {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    /* Center Logo & Adjust */
+    .logo-container img {
+        width: 30% !important;
+    }
+}
