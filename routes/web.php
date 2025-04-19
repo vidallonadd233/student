@@ -80,7 +80,7 @@ Route::get('/archive/report', [ReportIncidentsController::class, 'ShowArchived']
 Route::post('/report_incidents/{id}/archive', [ReportIncidentsController::class, 'archive'])->name('report_incidents.archive');
 Route::post('/report_incidents/{id}/restore', [ReportIncidentsController::class, 'restore'])->name('report_incidents.restore');
 
-    Route::delete('/report_incidents/{id}/destroy', [ReportIncidentsController::class, 'destroy'])->name('report_incidents.destroy');
+
 
 Route::put('/report_incidents/{id}/update', [ReportIncidentsController::class, 'update'])->name('report_incidents.update');
 Route::get('/report_incidents/{id}/edit', [ReportIncidentsController::class, 'edit'])->name('report_incidents.edit');
