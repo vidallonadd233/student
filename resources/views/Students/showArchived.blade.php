@@ -47,13 +47,6 @@
                         </form>
 
 
-                        <form action="{{ route('students.destroy',  $student->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to permanently delete this student?')">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </form>
                     </td>
                 </tr>
             @endforeach

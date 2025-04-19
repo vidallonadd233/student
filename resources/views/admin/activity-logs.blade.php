@@ -37,7 +37,7 @@
                     <th class="fw-normal">#</th> <!-- ID Column -->
                     <th class="fw-normal">Description</th> <!-- Description Column -->
                     <th class="fw-normal">Created At</th>
-                    <th class="fw-normal">Action</th><!-- Created At Column -->
+
                 </tr>
             </thead>
             <tbody>
@@ -48,9 +48,7 @@
                         <td>{{ $log->created_at->format('Y-m-d H:i:s') }}</td>
                             <td>
 
-                                    <button class="btn btn-danger btn-sm delete-log">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+
                                 </td>
 
                     </tr>

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/report.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/create.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/pagination.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/calendar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bus.css') }}">
 </head>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

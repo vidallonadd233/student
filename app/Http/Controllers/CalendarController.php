@@ -16,6 +16,15 @@ class CalendarController extends Controller
     // Display all calendars
     public function index(Request $request)
     {
+
+
+        $admin = auth()->guard('admin')->user();
+
+        if (!$admin || $admin->role !== 'admin') {
+            return redirect()->route('admin.login')->with('error', 'Access denied');
+        }
+
+
         $search = $request->input('search');
 
         $events = Calendar::when($search, function ($query, $search) {
@@ -39,6 +48,13 @@ class CalendarController extends Controller
     // Display events in calendar view
         public function events()
         {
+
+            $admin = auth()->guard('admin')->user();
+
+            if (!$admin || $admin->role !== 'admin') {
+                return redirect()->route('admin.login')->with('error', 'Access denied');
+            }
+
             $calendars = Calendar::all(); // Fetching all events from the Calendar model
             return view('student.calendar_date', compact('calendars'));
         }
@@ -72,6 +88,7 @@ class CalendarController extends Controller
         }
 
         // Send email notification (ensure email exists)
+        Mail::to('admin@example.com')->send(new ScheduleCreatedMail($calendar));
 
         // ✅ Stay on the calendar page & show success toast
         return redirect()->back()->with('toast_success', 'Appointment successfully sent.');

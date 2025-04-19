@@ -19,6 +19,13 @@ class ReportIncidentsController extends Controller
         $student = Auth::user();
         $query = ReportIncident::query();
 
+
+        $student = auth()->guard('student')->user();
+        if ($student->role !== 'admin') {
+            $query->where('user_id', $student->id);
+        }
+
+
         // Apply search filter if search term is provided
         if ($request->filled('search')) {
             $search = $request->search;
@@ -32,9 +39,18 @@ class ReportIncidentsController extends Controller
             });
         }
 
-        // Fetch reports with pagination
-        $reports = $query->orderByDesc('id')->paginate(10);
 
+        $student = auth()->guard('student')->user(); // use guard if using multiple auth
+        if (!$student) {
+            return redirect()->route('logins.form')->with('error', 'Unauthorized');
+        }
+
+        if ($student->status !== 'approved') {
+            return redirect()->back()->with('error', 'Account not approved.');
+        }
+
+        // Fetch reports with pagination
+        $reports = $query->orderByDesc('id')->paginate(8)->withQueryString();
 
         // Return the view with data
         return view('report_incidents.index', compact('reports', 'student'));
@@ -125,15 +141,21 @@ class ReportIncidentsController extends Controller
 
 
 
-
-    // Update the status of a report
     public function updateStatus(Request $request, $id)
     {
+        $request->validate([
+            'status' => 'required|string',
+            'remark' => 'nullable|string|max:255',
+        ]);
+
         $report = ReportIncident::findOrFail($id);
-        $report->update(['status' => $request->status]);
+        $report->update([
+            'status' => $request->status,
+            'remark' => $request->status === 'Solved' ? $request->remark : null,
+        ]);
 
         if ($request->status === 'Solved') {
-            return redirect()->route('admin.solvedReports')->with('success', 'Report moved to solved cases.');
+            return redirect()->route('admin.solvedReports')->with('success', 'Report marked as Solved. Remark added.');
         }
 
         return redirect()->route('admin.viewReports')->with('success', 'Status updated successfully.');
@@ -142,25 +164,33 @@ class ReportIncidentsController extends Controller
 
 
     public function solvedReports(Request $request)
-    {
-        $query = ReportIncident::where('status', 'Solved');
+{
 
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('id', 'like', "%$search%")
-                  ->orWhere('student_number', 'like', "%$search%")
-                  ->orWhere('age', 'like', "%$search%")
-                  ->orWhere('report_date', 'like', "%$search%")
-                  ->orWhere('category', 'like', "%$search%")
-                  ->orWhere('status', 'like', "%$search%");
-            });
-        }
+    $admin = auth()->guard('admin')->user();
 
-        $solvedReports = $query->orderBy('id', 'desc')->paginate(10);
-        return view('admin.solved-reports', compact('solvedReports'));
+    if (!$admin || $admin->role !== 'admin') {
+        return redirect()->route('admin.login')->with('error', 'Access denied');
     }
 
+
+
+    $query = ReportIncident::where('status', 'Solved')
+                           ->whereNotNull('remark'); // Only get reports with remarks
+
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function ($q) use ($search) {
+            $q->where('id', 'like', "%$search%")
+              ->orWhere('student_number', 'like', "%$search%")
+              ->orWhere('age', 'like', "%$search%")
+              ->orWhere('report_date', 'like', "%$search%")
+              ->orWhere('category', 'like', "%$search%");
+        });
+    }
+
+    $solvedReports = $query->orderBy('id', 'desc')->paginate(10);
+    return view('admin.solved-reports', compact('solvedReports'));
+}
 
 
     // Show a specific report
@@ -193,6 +223,13 @@ class ReportIncidentsController extends Controller
     // Monitor and search reports
         public function viewReports(Request $request)
         {
+
+            $admin = auth()->guard('admin')->user();
+
+            if (!$admin || $admin->role !== 'admin') {
+                return redirect()->route('admin.login')->with('error', 'Access denied');
+            }
+
             $query = ReportIncident::query();
 
             if ($request->filled('search')) {
@@ -203,7 +240,9 @@ class ReportIncidentsController extends Controller
                     ->orWhere('age', 'like', "%$search%")
                     ->orWhere('report_date', 'like', "%$search%")
                     ->orWhere('category', 'like', "%$search%")
-                    ->orWhere('status', 'like', "%$search%");
+                    ->orWhere('status', 'like', "%$search%")
+                    ->orWhere('remark', 'like', "%$search%");
+
                 });
             }
 
@@ -214,36 +253,43 @@ class ReportIncidentsController extends Controller
 
         public function ShowArchived(Request $request)
         {
+            $student = auth()->guard('student')->user();
 
- $query = ReportIncident::query();
+            // Start with the query builder
+            $query = ReportIncident::onlyTrashed(); // Retrieve only soft-deleted records
 
+            // Apply filter if not admin
+            if ($student->role !== 'admin') {
+                $query->where('user_id', $student->id);
+            }
+
+            // Apply search if provided
             if ($request->filled('search')) {
                 $search = $request->search;
                 $query->where(function ($q) use ($search) {
                     $q->where('id', 'like', "%$search%")
-                    ->orWhere('student_number', 'like', "%$search%")
-                    ->orWhere('age', 'like', "%$search%")
-                    ->orWhere('report_date', 'like', "%$search%")
-                    ->orWhere('category', 'like', "%$search%")
-                    ->orWhere('status', 'like', "%$search%");
+                      ->orWhere('student_number', 'like', "%$search%")
+                      ->orWhere('age', 'like', "%$search%")
+                      ->orWhere('report_date', 'like', "%$search%")
+                      ->orWhere('category', 'like', "%$search%")
+                      ->orWhere('status', 'like', "%$search%");
                 });
             }
 
-            // Retrieve only soft-deleted reports
-            $reports = ReportIncident::onlyTrashed('id' , 'desc')->paginate(10);
+            // Sort and paginate
+            $reports = $query->orderBy('deleted_at', 'desc')->paginate(10);
 
             return view('archive.report', compact('reports'));
         }
-
-
 
         public function archive($id)
 {
     // Find the report by ID
     $report = ReportIncident::findOrFail($id);
-
-    // Soft delete the report (moves to archive)
+    $report->archived = true;
     $report->save();
+    // Soft delete the report (moves to archive)
+    $report->delete();
 
     return redirect()->route('archive.report')->with('success', 'Report archived successfully.');
 }

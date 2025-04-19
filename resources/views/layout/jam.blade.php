@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/table.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/report.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/create.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/students.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/pagination.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bus.css') }}">
 
@@ -45,7 +45,7 @@
         // Chart scripts (if needed)
     </script>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

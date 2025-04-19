@@ -1,60 +1,113 @@
 #calendar {
-    width: 80%;
-    max-width: 1200px;
-    height: 600px;
-    margin: 20px auto;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: auto;
+    background-color: #fff;
+    padding: 15px;
     border-radius: 8px;
-    font-weight:  normal;
-}
-.fc-title, .fc-content {
-    font-weight: normal !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-#mothyear h2{
-    font-weight: normal;
-    font-size: 1.2rem;
+/* FullCalendar Event Colors */
+.fc-event {
+    border-radius: 5px !important;
+    font-size: 14px !important;
+    padding: 5px;
 }
-.calendar-header, .calendar-cell {
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ddd;
+.fc-event.free {
+    background-color: green !important;
+    color: white !important;
 }
-.calendar-header {
-    font-weight: normal;
-    background-color: #f8f9fa;
+.fc-event.reschedule {
+    background-color: yellow !important;
+    color: black !important;
 }
-.calendar-cell:hover {
-    background-color: #e9ecef;
-    cursor: pointer;
+.fc-event.done {
+    background-color: lightgray !important;
+    color: black !important;
 }
 
-/* Ensure modal content is well-spaced */
+/* Modal Styling */
 .modal-content {
-    max-width: 100px;
     border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Proper spacing for form fields */
-.modal-body .form-label {
-    font-weight: 300;
-    font-size: 1.0rem;
+/* Modal Header */
+.modal-header {
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+.modal-title {
+    font-weight: bold;
+}
+/* Hover effect for input fields */
+.modal-body input:hover,
+.modal-body textarea:hover,
+.modal-body select:hover {
+    border-color: #198754; /* Bootstrap success green */
+    background-color: #f8f9fa; /* Light gray background */
+    transition: 0.3s ease-in-out;
 }
 
-.modal-body .form-control {
+/* Hover effect for the submit button */
+.modal-body .btn-success:hover {
+    background-color: #146c43; /* Darker green */
+    border-color: #0f5132;
+    transform: scale(1.02); /* Slight zoom effect */
+    transition: 0.3s ease-in-out;
+}
+
+/* Hover effect for modal header */
+.modal-header:hover {
+    background-color: #e9ecef; /* Light gray */
+    transition: 0.3s ease-in-out;
+}
+
+/* Hover effect for file upload input */
+.modal-body input[type="file"]:hover {
+    border-color: #0d6efd; /* Bootstrap primary blue */
+}
+
+
+/* Form Inputs */
+.form-label {
+    font-weight: 600;
+    color: #333;
+}
+.form-control, .form-select {
     border-radius: 5px;
-    font-size: 1.0rem;
-
+    border: 1px solid #ddd;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
 }
-.btn-success{
-    align-items: center;
-}
-/* Adjust width of date and time inputs */
-.w-45 {
-    width: 48%; /* Ensures spacing between date and time fields */
+.form-control:focus, .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0px 0px 5px rgba(13, 110, 253, 0.5);
 }
 
+/* Button Styling */
+.btn {
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-weight: 600;
+}
+.btn-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+.btn-success:hover {
+    background-color: #157347;
+    border-color: #146c43;
+}
+.btn-outline-danger {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
 /* Ensure modal responsiveness */
 @media (max-width: 576px) {
     .d-flex.justify-content-between {

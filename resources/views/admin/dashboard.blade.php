@@ -80,6 +80,7 @@
 <!-- Chart.js Visualization -->
 <!-- Chart.js Visualization -->
 <!-- Chart.js Visualization -->
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -87,18 +88,18 @@ document.addEventListener("DOMContentLoaded", function () {
     new Chart(document.getElementById('barChart').getContext('2d'), {
         type: 'bar',
         data: {
-            labels: ['March', 'April', 'May', 'June'],
+            labels: [ 'April', 'May', 'June','July'],
             datasets: [
                 {
                     label: 'Reports',
-                    data: [{{ $studentsCount }}],
+                    data: [{{ $reportCount }}],
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
                 },
                 {
                     label: 'Students',
-                    data: [{{ $reportCount }}],
+                    data: [{{ $studentsCount }}],
                     backgroundColor: 'rgba(153, 102, 255, 0.2)',
                     borderColor: 'rgba(153, 102, 255, 1)',
                     borderWidth: 1
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
 new Chart(document.getElementById('incidentTrendsChart').getContext('2d'), {
     type: 'bar',
     data: {
-        labels: ['March', 'April', 'May', 'June', 'July'],
+        labels: [ 'April', 'May', 'June', 'July'],
         datasets: [
             {
                 label: 'Incidents',

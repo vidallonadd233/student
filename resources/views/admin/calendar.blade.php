@@ -1,6 +1,6 @@
 @extends('layout.jam')
 
-@section('title', 'Incident Reports')
+@section('title', 'Calendar')
 
 @section('content')
 
@@ -21,7 +21,7 @@
     </script>
 @endif
 
-    <h1 class="text-center fs-3 fw-normal">Events</h1>
+    <h1 class="text-center fs-3 fw-normal">Calendar</h1>
 
     <!-- Search and Download Buttons -->
     <form action="{{ route('admin.calendar') }}" method="GET" class="row g-3 align-items-center mb-4 justify-content-between mt-5">
@@ -39,6 +39,7 @@
     @if($events->isEmpty())
         <p>No events available.</p>
     @else
+    <div class="table-responsive">
         <table class="table table-hover fw-normal">
             <thead class="fw-normal">
                 <tr>
@@ -77,7 +78,7 @@
                                 <div class="modal-dialog modal-dialog-centered modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="editEventModalLabel">Edit Event Entry</h5>
+                                            <h5 class="modal-title text-center" id="editEventModalLabel">Edit</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
@@ -135,7 +136,7 @@
                                                     <textarea class="form-control" id="description" name="description" maxlength="255"></textarea>
                                                 </div>
 
-                                                <button type="submit" class="btn btn-primary w-100">Update Event Entry</button>
+                                                <button type="submit" class="btn btn-primary w-100">Update </button>
                                             </form>
                                         </div>
                                     </div>
@@ -153,7 +154,7 @@
                 @endforeach
             </tbody>
         </table>
-
+    </div>
         <div class="mt-4 d-flex justify-content-center">
             {{ $events->links('pagination::bootstrap-5') }}
         </div>

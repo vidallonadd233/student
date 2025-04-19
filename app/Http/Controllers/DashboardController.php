@@ -12,7 +12,15 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Ensure student is authenticated
+        $admin = auth()->guard('admin')->user();
+
+if (!$admin || $admin->role !== 'admin') {
+    return redirect()->route('admin.login')->with('error', 'Access denied');
+}
+
+
+
+
 
             // Get count of solved and unsolved incidents
             $solvedCount = ReportIncident::where('status', 'solved')->count();
@@ -24,6 +32,17 @@ class DashboardController extends Controller
                 ->groupBy('status')
                 ->get();
 
+
+
+                $report = ReportIncident::selectRaw('MONTHNAME(created_at) as month, COUNT(*) as count')
+                ->groupBy('month')
+                ->orderByRaw('MIN(created_at)')
+                ->pluck('count', 'month');
+
+            $student = Student::selectRaw('MONTHNAME(created_at) as month, COUNT(*) as count')
+                ->groupBy('month')
+                ->orderByRaw('MIN(created_at)')
+                ->pluck('count', 'month');
             // Get total students count and report count
             $studentsCount = Student::count();
             $reportCount = ReportIncident::count();

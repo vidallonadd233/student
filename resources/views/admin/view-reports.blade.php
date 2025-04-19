@@ -4,16 +4,20 @@
 
 @section('content')
 <div class="container">
-    <h1 class="fw-normal fs-4">View and Monitor Students</h1>
+    <h1 class="fw-normal fs-4 text-center mt-3"  > Admin Reports</h1>
 
     <!-- Search and Filter Form -->
-    <form action="{{ route('admin.viewReports') }}" method="GET" class="mb-4">
+    <form action="{{ route('admin.viewReports') }}" method="GET" class="mb-3">
         <div class="col-md-6">
             <div class="input-group">
                 <input type="text" name="search" class="form-control" placeholder="Search by ID or Student Number..." value="{{ request('search') }}">
                 <button type="submit" class="btn btn-primary">
                     <i class="bi bi-search"></i>
                 </button>
+
+
+
+
             </div>
         </div>
 
@@ -22,7 +26,7 @@
 
     <!-- Table Section -->
     <div class="table-responsive">
-        <table class="table table-striped fw-normal">
+        <table class="table table-striped fw-normal m-3">
             <thead class="thead-dark">
                 <tr>
                     <th class="text-center fw-normal">Student Number</th>
@@ -42,6 +46,7 @@
             <tbody>
                 @forelse($students as $report)
                     <tr>
+
                         <td class="text-center">{{ $report->student_number }}</td>
                         <td class="text-center">{{ $report->age }}</td>
                         <td class="text-center">{{ $report->report_date }}</td>
@@ -66,15 +71,28 @@
                                             <form action="{{ route('admin.updateStatus', $report->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
-                                                <div class="mb-3">
-                                                    <label for="status" class="form-label">Status</label>
-                                                    <select name="status" class="form-control" required>
-                                                        <option value="Unsolved" {{ $report->status === 'Unsolved' ? 'selected' : '' }}>Unsolved</option>
-                                                        <option value="Solved" {{ $report->status === 'Solved' ? 'selected' : '' }}>Solved</option>
-                                                    </select>
+
+                                                <label for="status">Status:</label>
+                                                <select name="status" id="status-{{ $report->id }}" onchange="toggleRemarkField({{ $report->id }})">
+                                                    <option value="Unsolved" {{ $report->status == 'Unsolved' ? 'selected' : '' }}>Unsolved</option>
+                                                    <option value="Solved" {{ $report->status == 'Solved' ? 'selected' : '' }}>Solved</option>
+                                                </select>
+
+                                                <div id="remarkField-{{ $report->id }}" style="display: none;">
+                                                    <label for="remark">Remark:</label>
+                                                    <textarea name="remark">{{ $report->remark }}</textarea>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary">Update</button>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Update Status</button>
+                                                </div>
+
+
+
                                             </form>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -143,8 +161,27 @@
             });
         });
         </script>
+    <script>
+        function toggleRemarkField(id) {
+            let status = document.getElementById("status-" + id).value;
+            let remarkField = document.getElementById("remarkField-" + id);
 
+            if (status === "Solved") {
+                remarkField.style.display = "block";
+            } else {
+                remarkField.style.display = "none";
+            }
+        }
+    </script>
+<script>
+    @if(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}");
+    @endif
 
+    @if(Session::has('error'))
+        toastr.error("{{ Session::get('error') }}");
+    @endif
+</script>
     <!-- Pagination Links -->
     <div class="mt-4 d-flex justify-content-center">
         {{ $students->links('pagination::bootstrap-5') }}

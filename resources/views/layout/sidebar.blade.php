@@ -48,6 +48,11 @@
                         <span>Solved Cases</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="px-3 rounded nav-link text-light d-flex align-items-center" href="{{ route('student.calendar_events') }}">
+                        <span>Schedule</span>
+                    </a>
+                </li>
 
 
                 <li class="sidebar-item">
@@ -103,8 +108,8 @@
                     <!-- Notification Bell -->
 
                     <!-- Profile Dropdown -->
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="nav-item ">
+                        <a class="nav-link " href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             @if(Auth::guard('admin')->check())
                                 {{ Auth::guard('admin')->user()->email }}
                             @endif

@@ -18,6 +18,8 @@ class Student extends Authenticatable
         'age',
         'gender',
         'password',
+        'status',
+        'role',
         'picture',
     ];
 

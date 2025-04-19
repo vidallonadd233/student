@@ -20,6 +20,35 @@
     background-color: transparent !important;
 }
 
+
+/* Hover effect for input fields */
+.modal-body input:hover,
+.modal-body textarea:hover,
+.modal-body select:hover {
+    border-color: #198754; /* Bootstrap success green */
+    background-color: #f8f9fa; /* Light gray background */
+    transition: 0.3s ease-in-out;
+}
+
+/* Hover effect for the submit button */
+.modal-body .btn-success:hover {
+    background-color: #146c43; /* Darker green */
+    border-color: #0f5132;
+    transform: scale(1.02); /* Slight zoom effect */
+    transition: 0.3s ease-in-out;
+}
+
+/* Hover effect for modal header */
+.modal-header:hover {
+    background-color: #e9ecef; /* Light gray */
+    transition: 0.3s ease-in-out;
+}
+
+/* Hover effect for file upload input */
+.modal-body input[type="file"]:hover {
+    border-color: #0d6efd; /* Bootstrap primary blue */
+}
+
 /* Optional: Add a light blur effect to the modal */
 
 

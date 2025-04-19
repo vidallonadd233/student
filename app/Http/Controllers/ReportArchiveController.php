@@ -10,6 +10,15 @@ class ReportArchiveController extends Controller
     public function showArchivedReports()
     {
 
+
+        $admin = auth()->guard('admin')->user();
+
+        if (!$admin || $admin->role !== 'admin') {
+            return redirect()->route('admin.login')->with('error', 'Access denied');
+        }
+
+
+
     $archivedReports = ReportIncident::onlyTrashed()->get();
 
         // Pass the data to the view

@@ -8,6 +8,8 @@ use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 
 class LoginsController extends Controller
 {
@@ -17,23 +19,52 @@ class LoginsController extends Controller
         if (Auth::check()) {
             // If the user is already logged in, redirect to dashboard
             return redirect()->route('dashboard');  // Ensure 'dashboard' is the correct route name
-        }
+            }
 
-        return view('students.logins');
-    }
+            return view('students.logins');
+        }
 
     // Handle student login
     public function logins(Request $request)
     {
-        // Validate the incoming request data
+        // Validate only required fields here
         $credentials = $request->validate([
             'student_number' => ['required', 'string'],
-            'password' => ['required'],
+            'password' => ['required', 'string'],
         ]);
 
-        // Attempt to authenticate the student
+        $student = auth()->guard('student')->user();
+
+        // Retrieve the student by student_number
+        $student = Student::where('student_number', $request->student_number)->first();
+
+        if (!$student) {
+            return back()->with('toast_error', 'Student number not found.')->withInput();
+        }
+
+        if ($student->status === 'pending ') {
+            return back()->with('toast_error', 'Your account need a  permissions Admin.')->withInput();
+        }
+
+        if ($student->status === 'rejected') {
+            return back()->with('toast_error', 'Your account has been rejected.')->withInput();
+        }
+
+        if ($student->status !== 'approved') {
+            return back()->with('toast_warning', 'Your account is not approved yet.')->withInput();
+        }
+
+        $remember = $request->has('remember'); //
         if (Auth::guard('student')->attempt($credentials)) {
-            // Log successful login details
+            if (Auth::guard('student')->user()->status !== 'approved') {
+                Auth::guard('student')->logout();
+                return back()->with('toast_error', 'Your account is not approved.')->withInput();
+            }
+
+
+
+
+            // Log activity
             activity()
                 ->causedBy(auth()->guard('student')->user())
                 ->withProperties([
@@ -42,35 +73,14 @@ class LoginsController extends Controller
                 ])
                 ->log('Successful login attempt');
 
-            // Optional: Send login notification
-            $report = (object)[
-                'student_number' => $credentials['student_number'],
-                'location' => $request->ip(),
-                'description' => 'Successful login attempt',
-                'assigned_staff' => 'Admin',
-                'person_involved' => 'Student',
-                'status' => 'Logged In'
-            ];
-
-
-            $student = (object) [
-                'student_number' => $credentials['student_number'],
-                'age' => 'Unknown', // Set a default if age is missing
-                'gender' => 'Unknown'
-            ];
-
+            // Notify admin (optional)
             Mail::to('admin@yourdomain.com')->send(new StudentRegisteredMail($student));
 
-            // Redirect to the dashboard
-            return redirect()->route('report_incidents.index')->with('toast_success', 'Report created successfully!');
+            // Redirect
+            return redirect()->route('report_incidents.index')->with('toast_success', 'Logged in successfully and approved !');
+        }
 
- };
-
-        // Authentication failed
-        return back()->withErrors(['student_number' => __('The provided credentials do not match our records.')])->withInput();
+        return back()->with('toast_error', 'The provided credentials do not match our records.')->withInput();
     }
 
-
-
-
-}
+            }

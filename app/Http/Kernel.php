@@ -84,6 +84,9 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'isStudent' => \App\Http\Middleware\IsStudent::class,
         'isAdmin' => \App\Http\Middleware\IsAdmin::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+
+        'is_strict_admin' => \App\Http\Middleware\StrictAdminCheck::class,
 
 
 

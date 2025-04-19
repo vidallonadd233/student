@@ -7,15 +7,26 @@
     <title>Login Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-
     <link href="{{ asset('assets/css/jam.css') }}" rel="stylesheet">
 </head>
 <body>
 
-
-
+    @if(session('toast_success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: @json(session('toast_success')),
+                timer: 3000,
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end'
+            });
+        });
+    </script>
 @endif
+
 
         <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="shadow-lg card w-50">
@@ -91,8 +102,52 @@
 
 
 
+<script>
+
+            document.getElementById("togglePassword").addEventListener("click", function () {
+                let passwordInput = document.getElementById("password");
+                let toggleIcon = this.querySelector("i");
+
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    toggleIcon.classList.remove("bi-eye");
+                    toggleIcon.classList.add("bi-eye-slash");
+                } else {
+                    passwordInput.type = "password";
+                    toggleIcon.classList.remove("bi-eye-slash");
+                    toggleIcon.classList.add("bi-eye");
+                }
+            });
+               document.addEventListener("DOMContentLoaded", function () {
+        function adjustMobileView() {
+            let screenWidth = window.innerWidth;
+
+            // Adjust input field padding & font size
+            if (screenWidth < 576) { // Small screens
+                document.querySelectorAll('.form-control').forEach(el => {
+                    el.style.padding = "10px";
+                    el.style.fontSize = "14px";
+                });
+
+                // Adjust logo size
+                let logo = document.querySelector('.img-logo');
+                if (logo) {
+                    logo.style.maxWidth = "100px"; // Smaller logo
+                }
+
+                // Reduce card width for small screens
+                let card = document.querySelector('.card');
+                if (card) {
+                    card.style.width = "95%";
+                }
+            }
+        }
+
+        adjustMobileView(); // Run on page load
+        window.addEventListener("resize", adjustMobileView); // Run on window resize
+    });
 
 
-
+</script>
 </body>
 </html>

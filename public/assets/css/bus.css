@@ -1,54 +1,108 @@
 #calendar {
-    max-width: 1000px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: auto;
+    background-color: #fff;
+   height: 90vh;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-size: 1.0rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* FullCalendar Event Colors */
+.fc-event {
+    border-radius: 5px !important;
+    font-size: 14px !important;
+    padding: 5px;
+}
+.fc-event.free {
+    background-color: green !important;
+    color: white !important;
     font-weight: normal;
+
+}
+.fc-event.reschedule {
+    background-color: yellow !important;
+    color: black !important;
+}
+.fc-event.done {
+    background-color: rgb(32, 228, 94) !important;
+    color: black !important;
 }
 
-.fc-header-toolbar {
-
-
-    border-radius: 8px;
+/* Modal Styling */
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.fc-header-toolbar .fc-button {
+/* Modal Header */
+.modal-header {
+    background-color:  green;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+.modal-title {
+    font-weight: normal
+}
 
-
-    border-radius: 4px;
-    padding: 10px;
+/* Form Inputs */
+.form-label {
+    font-weight: 600;
     font-weight: normal;
+    color: #333;
 }
-
-.fc-header-toolbar .fc-button:hover {
-    background-color: #f57c42;
-}
-
-.fc-daygrid-day {
+.form-control, .form-select {
     border-radius: 5px;
-    transition: background-color 0.3s;
+    border: 1px solid #ddd;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+}
+.form-control:focus, .form-select:focus {
+    border-color: #22e50d;
+    box-shadow: 0px 0px 5px rgba(13, 110, 253, 0.5);
 }
 
-.fc-daygrid-day:hover {
-    background-color: #f0f0f0;
+/* Button Styling */
+.btn {
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-weight: 600;
 }
-
-.fc-daygrid-day-number {
-    font-weight: normal;
-    font-size: 1.0rem;
-    color: #2d87f0;
+.btn-success {
+    background-color: #198754;
+    border-color: #198754;
 }
-@media (max-width: 768px) {
-    #calendar {
-        min-height: 400px; /* Adjust height for tablets */
-        padding: 15px;
-    }
+.btn-success:hover {
+    background-color: #157347;
+    border-color: #146c43;
 }
-
+.btn-outline-danger {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
+/* Ensure modal responsiveness */
 @media (max-width: 576px) {
-    #calendar {
-        min-height: 300px; /* Adjust height for smaller screens */
-        padding: 10px;
+   #calendar{
+    height: 150vh;
+    max-height: 200px;
+   }
+
+
+    .d-flex.justify-content-between {
+        flex-direction: column;
+    }
+
+    .w-45 {
+        width: 100%;
     }
 }
+
+/* Button styling */
+.btn-success {
+    width: 100%;
+    font-weight: normal;
+}
+

@@ -31,60 +31,52 @@
     </script>
 @endif
 
-        <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="shadow-lg card ">
-            <div class="row g-0">
-                <!-- Left Side: Logo -->
-                <div class="col-md-6 d-flex justify-content-center align-items-center bg-light">
-                    <img src="{{ asset('image/logo.png') }}" class="img-fluid"  alt="School Logo " style="width: 40%;">
-                </div>
-                <!-- Right Side: Login Form -->
-                <div class="p-4 col-md-6">
-                    <h3 class="mb-4 text-center fw-normal"> Admin Login</h3>
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg">
+        <div class="row g-0">
+            <!-- Left Side: Logo -->
+            <div class="col-md-6 d-flex justify-content-center align-items-center bg-light">
+                <img src="{{ asset('image/logo.png') }}" class="img-fluid" alt="School Logo" style="width: 40%;">
+            </div>
 
-                        <!-- Email Address -->
-                        <div class="mb-3 form-group">
-                            <label for="email">{{ __('Email Address') }}</label>
-                            <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autofocus>
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+            <!-- Right Side: Login Form -->
+            <div class="col-md-6 p-4">
+                <h3 class="mb-4 text-center fw-normal">Admin Login</h3>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
 
-                        <div class="mb-3 form-group position-relative">
-                            <label for="password">{{ __('Password') }}</label>
-                            <div class="position-relative">
-                                <input type="password" name="password" id="password" class="form-control pe-5 @error('password') is-invalid @enderror" required>
-                                <i class="bi bi-eye position-absolute end-0 top-50 translate-middle-y me-3"
-                                   id="togglePassword" style="cursor: pointer;"></i>
-                            </div>
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="email">{{ __('Email Address') }}</label>
+                        <input type="email" name="email" id="email"
+                            class="form-control @error('email') is-invalid @enderror"
+                            value="{{ old('email') }}" required autofocus>
+                        @error('email')
+                            <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
 
+                    <!-- Password -->
+                    <div class="mb-3 position-relative">
+                        <label for="password">{{ __('Password') }}</label>
+                        <input type="password" name="password" id="password"
+                            class="form-control pe-5 @error('password') is-invalid @enderror" required>
+                        <i class="bi bi-eye position-absolute end-0 top-50 translate-middle-y me-3"
+                            id="togglePassword" style="cursor: pointer;"></i>
+                        @error('password')
+                            <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
 
-                        <!-- JavaScript for Password Toggle -->
-
-                        <!-- Submit Button -->
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success w-100">Login</button>
-                        </div>
-
-                        <!-- Forgot Password Link -->
-
-                    </form>
-                </div>
+                    <!-- Submit -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success w-100">Login</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
+</div>
 
     <script>
         document.getElementById("togglePassword").addEventListener("click", function () {

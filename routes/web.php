@@ -84,24 +84,55 @@ Route::post('/report_incidents/{id}/restore', [ReportIncidentsController::class,
 
 Route::put('/report_incidents/{id}/update', [ReportIncidentsController::class, 'update'])->name('report_incidents.update');
 Route::get('/report_incidents/{id}/edit', [ReportIncidentsController::class, 'edit'])->name('report_incidents.edit');
+// In web.php routes file
+Route::post('/admin/toggle-report-button', [ReportIncidentsController::class, 'toggleReportButton'])->name('admin.toggleReportButton');
 
     Route::post('/student/logout', [RegistrationController::class, 'studentLogout'])->name('logout.student');
 
 
-    Route::get('/register', [RegistrationController::class, 'create'])->name('register.create');
-    Route::post('/register', [RegistrationController::class, 'store'])->name('register.store');
-    // Password Reset Routes
-    Route::get('password/create', [NewPasswordController::class, 'showCreateForm'])->name('password.create');
-    Route::post('password/create', [NewPasswordController::class, 'create'])->name('password.store');
-    Route::get('/logins', [LoginsController::class, 'Showformlogins'])->name('logins.form');
-        Route::post('/logins', [LoginsController::class, 'logins'])->name('logins.submit');
+        Route::get('/register', [RegistrationController::class, 'create'])->name('register.create');
+        Route::post('/register', [RegistrationController::class, 'store'])->name('register.store');
+        // Password Reset Routes
+        Route::get('password/create', [NewPasswordController::class, 'showCreateForm'])->name('password.create');
+        Route::post('password/create', [NewPasswordController::class, 'create'])->name('password.store');
+
+        Route::group(['prefix' => 'student'], function () {
+        Route::get('/logins', [LoginsController::class, 'Showformlogins'])->name('logins.form');
+            Route::post('/logins', [LoginsController::class, 'logins'])->name('logins.submit');
+
+            Route::resource('report_incidents', ReportIncidentsController::class);
+            Route::get('/archive/report', [ReportIncidentsController::class, 'ShowArchived'])->name('archive.report');
+
+        });
+
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'is_strict_admin']], function () {
+
+    // ✅ These become /admin/login and /admin/dashboard
+    Route::get('admin/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('admin/login', [LoginController::class, 'loginOrCreate'])->name('admin.login');
+    Route::get('/admin/reports/solved', [ReportIncidentsController::class, 'solvedReports'])->name('admin.solvedReports');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('students/index',[RegistrationController::class,'index'])->name('students.index');
+    Route::get('/admin/view-reports', [ReportIncidentsController::class, 'viewReports'])->name('admin.viewReports');
+    Route::get('/admin/archive-reports', [AdminReportController::class, 'archivedReports'])->name('admin.archive-reports');
+    Route::get('/admin/calendar', [CalendarController::class, 'index'])->name('admin.calendar');
+    Route::get('/student/calendar_date', [CalendarController::class, 'events'])->name('student.calendar_events');
+});
 
 Route::get('admin/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('admin/login', [LoginController::class, 'loginOrCreate'])->name('admin.login');
 
-    // Dashboard
+Route::get('/admin/reports/solved', [ReportIncidentsController::class, 'solvedReports'])->name('admin.solvedReports');
+
+
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::put('/admin/reports/{id}/status', [ReportIncidentsController::class, 'updateStatus'])->name('admin.updateStatus');
+    // other admin routes...
+
+
+    // Dashboard
+
+    Route::put('/reports/{id}/update-status', [ReportIncidentsController::class, 'updateStatus'])->name('admin.updateStatus');
     Route::get('/admin/reports/solved', [ReportIncidentsController::class, 'solvedReports'])->name('admin.solvedReports');
 
 
@@ -146,7 +177,17 @@ Route::post('/students/archive/{id}', [RegistrationController::class, 'StudentAr
             // Route to restore an archived student
             Route::post('/students/restore/{id}', [RegistrationController::class, 'restore'])->name('students.restore');
             Route::delete('/students/destroy/{id}', [RegistrationController::class, 'destroy'])->name('students.destroy');
-     Route::get('/students/index', [StudentArchiveController::class, 'index'])->name('students.index');
+            Route::post('/students/{id}/approve', [RegistrationController::class, 'updateStatus'])->name('students.approve');
+
+
+
+
+
+     Route::put('/students/{id}/update-status', [RegistrationController::class, 'updateStatus'])->name('students.updateStatus');
+
+Route::put('/students/{id}/approve', [RegistrationController::class, 'approve'])->name('students.approve');
+Route::put('/students/{id}/reject', [RegistrationController::class, 'reject'])->name('students.reject');
+
 
      Route::get('/students/{id}/edit', [RegistrationController::class, 'edit'])->name('students.edit');
      Route::put('/students/{id}', [RegistrationController::class, 'update'])->name('students.update');
@@ -179,4 +220,3 @@ Route::get('password/create', [NewPasswordController::class, 'showCreateForm'])-
 Route::post('password/create', [NewPasswordController::class, 'create'])->name('password.store');
  Route::get('/logins', [LoginsController::class, 'Showformlogins'])->name('logins.form');
     Route::post('/logins', [LoginsController::class, 'logins'])->name('logins.submit');
-    Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');

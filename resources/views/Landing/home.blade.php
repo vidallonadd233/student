@@ -20,7 +20,7 @@
     <img src="image/picture5.jpg" class="w-100 h-100" alt="PAL3SHS Welcome" style="object-fit: cover;">
     <div class="top-0 position-absolute start-0 w-100 h-100" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));"></div>
     <div class="container text-center text-white position-absolute top-50 start-50 translate-middle">
-        <h1 class="mb-3" style="font-size: 2rem; font-weight: normal;">Welcome to PAL3SHS</h1>
+        <h1 class="mb-3" style="font-size: 2rem; font-weight: normal;">Welcome to Paliparan 3 Senior High School</h1>
         <p class="text-center fw-normal" style="text-transform: none; font-size: 1.2rem; line-height: 1.5;">
             Our platform ensures a supportive environment for
             all students at <br>Paliparan 3 Senior High School

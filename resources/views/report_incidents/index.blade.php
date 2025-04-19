@@ -13,7 +13,7 @@
                     icon: 'success',
                     title: 'Success!',
                     text: "{{ session('toast_success') }}",
-                    timer: 3000,
+                    timer: 10000,
                     showConfirmButton: false,
                     toast: true,
                     position: 'top-center'
@@ -28,14 +28,6 @@
             <form action="{{ route('report_incidents.index') }}" method="GET" class="mb-4 row g-3 align-items-center justify-content-between">
 
                 <!-- Search Bar on the Left -->
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <input type="text" name="search" class="form-control" placeholder="Search by ID or Student Number..." value="{{ request('search') }}">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
-                </div>
 
                 <!-- Buttons on the Right -->
                 <div class="gap-2 col-md-auto d-flex">
@@ -45,10 +37,10 @@
 
 
 
-                    <!-- Button to open the modal for creating a new report -->
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createReportModal">
+                  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createReportModal">
                         New Report
-                    </button>
+                    </button>   <!-- Button to open the modal for creating a new report -->
+
 
                 </div>
 
@@ -70,7 +62,11 @@
                                         <!-- Student Number and Age on the same line -->
                                         <div class="col-md-6">
                                             <label for="student_number" class="form-label">Student Number</label>
-                                            <input type="number" class="form-control" id="student_number" name="student_number" required>
+                                            <input type="number" class="form-control" id="student_number" name="student_number"  min="0"
+                                            onkeydown="preventNegative(event)"
+                                            oninput="this.value = Math.max(this.value, 0)"
+                                            required
+                                            autofocus required>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="age" class="form-label">Age</label>
@@ -131,7 +127,7 @@
             <div class="row">
                 <div class="col-12">
                     @if ($reports->isEmpty())
-                        <div class="text-center alert alert-info">No reports available.</div>
+                        <div class="text-center alert alert-info">This report page is private</div>
                     @else
                         <div class="table-responsive">
                             <table class="table text-center align-middle table-striped">
@@ -172,7 +168,7 @@
                                                     <img src="{{ asset('storage/' . $report->evidence) }}"
                                                          alt="Evidence Image"
                                                          class="rounded img-thumbnail"
-                                                         style="max-width: 60px;">
+                                                         style="max-width: 70px;">
                                                 @elseif (in_array($fileExtension, ['mp4', 'avi', 'mov', 'webm', 'mkv']))
                                                     <a href="{{ asset('storage/' . $report->evidence) }}"
                                                        target="_blank"
@@ -205,12 +201,12 @@
 
 
                                                     <!-- Archive Button -->
-                                                    <form action="{{ route('report_incidents.archive', $report->id) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-danger">
-                                                            <i class="bi bi-archive"></i>
-                                                        </button>
-                                                    </form>
+                                                        <form action="{{ route('report_incidents.archive', $report->id) }}" method="POST">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger">
+                                                                <i class="bi bi-archive"></i>
+                                                            </button>
+                                                        </form>
 
                                                 <!-- Edit Report Modal -->
                                                 <div class="modal fade" id="editReportModal-{{ $report->id }}" tabindex="-1" aria-labelledby="editReportModalLabel-{{ $report->id }}" aria-hidden="true">
@@ -306,8 +302,19 @@
             </div>
         </div>
 
+
+        @if ($reports->hasPages())
         <div class="mt-4 d-flex justify-content-center">
             {{ $reports->links('pagination::bootstrap-5') }}
         </div>
+        @endif
 
+        <script>
+            function preventNegative(e) {
+                // Prevent minus sign and arrow down
+                if (e.key === "-" || e.key === "ArrowDown") {
+                    e.preventDefault();
+                }
+            }
+        </script>
         @endsection

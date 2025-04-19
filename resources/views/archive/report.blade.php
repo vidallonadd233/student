@@ -6,7 +6,7 @@
 
     @section('content')
     <div class="container mt-5 ">
-        <h1 class="text-center fw-normal fs-4 ">Archived Reports</h1>
+
 
         @if (session('success'))
         <div class="alert alert-success text-center mx-auto w-50">
@@ -15,7 +15,7 @@
         @endif
 
         @if ($reports->isEmpty())
-            <p class="text-center">No archived reports found.</p>
+            <p class="text-center">This archived page is private page .</p>
         @else
             <form action="{{ route('report_incidents.index') }}" method="GET" class="mt-2 mb-4 row g-3 align-items-center">
                 <div class="col-md-6">
@@ -43,7 +43,7 @@
                             <th class="align-middle fw-normal">Category</th>
                             <th class="align-middle fw-normal">Description</th>
                             <th class="align-middle fw-normal">Location</th>
-                            <th class="align-middle fw-normal">Status</th>
+
                             <th class="align-middle fw-normal">Person Involved</th>
                             <th class="align-middle fw-normal">Evidence</th>
                             <th class="align-middle fw-normal">Actions</th>
@@ -60,11 +60,7 @@
                                 <td>{{ $report->category }}</td>
                                 <td class="text-truncate" style="max-width: 150px;">{{ $report->description }}</td>
                                 <td>{{ $report->location }}</td>
-                                <td>
-                                    <span class="badge {{ $report->status === 'Solved' ? 'bg-success' : 'bg-warning' }}">
-                                        {{ $report->status }}
-                                    </span>
-                                </td>
+
                                 <td>{{ $report->person_involved }}</td>
                                 <td>
                                     @if ($report->evidence)
@@ -73,7 +69,7 @@
                                         @endphp
 
                                         @if (in_array($fileExtension, ['jpeg', 'png', 'jpg', 'gif']))
-                                            <img src="{{ asset('storage/' . $report->evidence) }}" alt="Evidence Image" class="rounded img-thumbnail" style="max-width: 100px;">
+                                            <img src="{{ asset('storage/' . $report->evidence) }}" alt="Evidence Image" class="rounded img-thumbnail" style="max-width: 50px;">
                                         @elseif (in_array($fileExtension, ['mp4', 'avi', 'mov', 'webm', 'mkv']))
                                             <a href="{{ asset('storage/' . $report->evidence) }}" target="_blank" class="btn btn-sm btn-primary">View Video</a>
                                         @else
@@ -93,13 +89,7 @@
                                     </form>
 
                                     <!-- Delete button -->
-                                    <form action="{{ route('report_incidents.destroy', $report->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this report?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -108,8 +98,8 @@
             </div>
 
             <!-- Pagination links -->
-            <div class="d-flex justify-content-center">
-                {{ $reports->links() }}
+            <div class="mt-4 d-flex justify-content-center">
+                {{ $reports->links('pagination::bootstrap-5') }}
             </div>
         @endif
     </div>

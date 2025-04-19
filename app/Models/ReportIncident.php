@@ -29,6 +29,7 @@ class ReportIncident extends Model
         'evidence',
         'person_involved',
         'status',
+        'remark',
         'description',
         'archived',
         'can_report',
@@ -38,6 +39,9 @@ class ReportIncident extends Model
 
     // Optionally, you can define date format if needed
     protected $dates = ['report_date','delete_at']; // Add 'deleted_at' for soft deletes
-
+    public function reports()
+    {
+        return $this->hasMany(ReportIncident::class, 'student_id');
+    }
 
 }

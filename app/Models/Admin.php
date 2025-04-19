@@ -19,4 +19,8 @@ public $timestamps  = false;
 
     protected $guarded = [];
     protected $hidden = ['password', 'remember_token'];
+
+protected $casts = [
+    'is_admin' => 'boolean',
+];
 }

@@ -33,11 +33,6 @@
          </li>
 
 
-         <li class="sidebar-item">
-            <a class="px-3 rounded nav-link text-light d-flex align-items-center" href="{{ route('student.calendar_events') }}">
-                <span>Schedule</span>
-            </a>
-        </li>
 
         <li class="sidebar-item">
             <a class="px-3 rounded nav-link text-light d-flex align-items-center" href="{{ route('archive.report') }}">

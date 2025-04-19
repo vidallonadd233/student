@@ -11,6 +11,16 @@ class ActivityLogController extends Controller
 {
     public function index(Request $request)
     {
+
+
+
+        $admin = auth()->guard('admin')->user();
+
+        if (!$admin || $admin->role !== 'admin') {
+            return redirect()->route('admin.login')->with('error', 'Access denied');
+        }
+
+
         // Get the search query from the request
         $search = $request->input('search');
 

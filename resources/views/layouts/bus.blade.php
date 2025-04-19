@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/report.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/create.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/calendar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/students.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/table.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/pagination.css') }}">

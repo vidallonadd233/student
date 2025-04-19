@@ -7,27 +7,76 @@
         <title>Student Login</title>
 
         <!-- Bootstrap 5.3.3 CDN -->
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('assets/css/logins.css') }}">
     </head>
     <body>
+{{-- Success Toast using SweetAlert --}}
+<script>
+    @if(session('toast_error'))
+      <div class="alert alert-danger alert-dismissible fade show auto-dismiss" role="alert">
+          {{ session('toast_error') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  @endif
 
-            @if(session('toast_success'))
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: "{{ session('toast_success') }}",
-                    timer: 3000,
-                    showConfirmButton: false,
-                    toast: true,
-                    position: 'top-center'
-                });
-            </script>
+  @if(session('toast_warning'))
+      <div class="alert alert-warning alert-dismissible fade show auto-dismiss" role="alert">
+          {{ session('toast_warning') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  @endif
+
+  @if(session('toast_success'))
+      <div class="alert alert-success alert-dismissible fade show auto-dismiss" role="alert">
+          {{ session('toast_success') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  @endif
+  </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        @if(session('toast_error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: '{{ session('toast_error') }}',
+                position: 'top',
+                showConfirmButton: false,
+                timer: 4000,
+                toast: true
+            });
         @endif
 
-        <div class="container d-flex justify-content-center align-items-center min-vh-100" >
+        @if(session('toast_warning'))
+            Swal.fire({
+                icon: 'warning',
+                title: 'Notice',
+                text: '{{ session('toast_warning') }}',
+                position: 'top',
+                showConfirmButton: false,
+                timer: 4000,
+                toast: true
+            });
+        @endif
+
+        @if(session('toast_success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('toast_success') }}',
+                position: 'top',
+                showConfirmButton: false,
+                timer: 4000,
+                toast: true
+            });
+        @endif
+    });
+</script>
+
+
+        <div class="container d-flex justify-content-center align-items-center min-vh-100">
             <div class="shadow-lg card w-75">
                 <div class="row g-0">
                     <!-- Left Side: Logo -->
@@ -51,33 +100,35 @@
                                 </div>
                             @endif
 
-
                             <h4 class="mb-3 text-center fw-normal">Student Login</h4>
                             <form action="{{ route('logins.submit') }}" method="POST">
                                 @csrf
 
                                 <div class="mb-3 form-group">
                                     <label for="student_number" class="form-label fw-normal">Student Number:</label>
-                                    <input type="number" class="form-control @error('student_number') is-invalid @enderror" name="student_number" id="student_number" placeholder="Enter your student number" value="{{ old('student_number') }}" required>
+                                    <input type="number" class="form-control @error('student_number') is-invalid @enderror" name="student_number" id="student_number" placeholder="Enter your student number" value="{{ old('student_number') }}"            min="0"
+                                    onkeydown="preventNegative(event)"
+                                    oninput="this.value = Math.max(this.value, 0)"
+                                    required
+                                    autofocus required>
                                     @error('student_number')
                                         <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                                     @enderror
                                 </div>
 
                                 <!-- Password field -->
-                                <div class="mb-3 form-group position-relative">
-                                    <label for="password">{{ __('Password') }}</label>
-                                    <div class="position-relative">
-                                        <input type="password" name="password" id="password" class="form-control pe-5 @error('password') is-invalid @enderror" required>
-                                        <i class="bi bi-eye position-absolute end-0 top-50 translate-middle-y me-3"
-                                           id="togglePassword" style="cursor: pointer;"></i>
-                                    </div>
+                                <div class="form-floating mb-3 position-relative">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                           name="password" id="password" placeholder="Password" required>
+                                    <label for="password">Password</label>
+                                    <i class="bi bi-eye-slash position-absolute end-0 top-50 translate-middle-y me-3"
+                                       id="togglePassword" style="cursor: pointer;"></i>
                                     @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <span class="invalid-feedback d-block mt-1"><strong>{{ $message }}</strong></span>
                                     @enderror
                                 </div>
+
+
 
                                 <!-- Submit Button -->
                                 <div class="d-flex justify-content-center">
@@ -97,61 +148,69 @@
                 </div>
             </div>
         </div>
+        <script>
+            document.getElementById("togglePassword").addEventListener("click", function () {
+                let passwordInput = document.getElementById("password");
+                let toggleIcon = this;
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    toggleIcon.classList.remove("bi-eye");
+                    toggleIcon.classList.add("bi-eye-slash");
+                } else {
+                    passwordInput.type = "password";
+                    toggleIcon.classList.remove("bi-eye-slash");
+                    toggleIcon.classList.add("bi-eye");
+                }
+            });
 
-
-
-            <script>
-                document.getElementById("togglePassword").addEventListener("click", function () {
-                    let passwordInput = document.getElementById("password");
-                    let toggleIcon = this.querySelector("i");
-
-                    if (passwordInput.type === "password") {
-                        passwordInput.type = "text";
-                        toggleIcon.classList.remove("bi-eye");
-                        toggleIcon.classList.add("bi-eye-slash");
-                    } else {
-                        passwordInput.type = "password";
-                        toggleIcon.classList.remove("bi-eye-slash");
-                        toggleIcon.classList.add("bi-eye");
-                    }
-                });
-                document.addEventListener("DOMContentLoaded", function () {
-            function adjustMobileView() {
-                let screenWidth = window.innerWidth;
-
-                // Adjust input field padding & font size
-                if (screenWidth < 576) { // Small screens
-                    document.querySelectorAll('.form-control').forEach(el => {
-                        el.style.padding = "10px";
-                        el.style.fontSize = "14px";
-                    });
-
-                    // Adjust logo size
-                    let logo = document.querySelector('.img-logo');
-                    if (logo) {
-                        logo.style.maxWidth = "100px"; // Smaller logo
-                    }
-
-                    // Reduce card width for small screens
-                    let card = document.querySelector('.card');
-                    if (card) {
-                        card.style.width = "95%";
+            document.addEventListener("DOMContentLoaded", function () {
+                function adjustMobileView() {
+                    let screenWidth = window.innerWidth;
+                    // Adjust input field padding & font size
+                    if (screenWidth < 576) {
+                        document.querySelectorAll('.form-control').forEach(el => {
+                            el.style.padding = "10px";
+                            el.style.fontSize = "14px";
+                        });
+                        // Adjust logo size
+                        let logo = document.querySelector('.img-logo');
+                        if (logo) {
+                            logo.style.maxWidth = "100px";
+                        }
+                        // Reduce card width for small screens
+                        let card = document.querySelector('.card');
+                        if (card) {
+                            card.style.width = "95%";
+                        }
                     }
                 }
-            }
+                adjustMobileView(); // Run on page load
+                window.addEventListener("resize", adjustMobileView);
+            });
 
-            adjustMobileView(); // Run on page load
-            window.addEventListener("resize", adjustMobileView); // Run on window resize
+
+            document.addEventListener("DOMContentLoaded", function () {
+        const alerts = document.querySelectorAll('.auto-dismiss');
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }, 4000); // 4000ms = 4 seconds
         });
-                </script>
+    });
 
 
+    function preventNegative(e) {
+        // Prevent minus sign and arrow down
+        if (e.key === "-" || e.key === "ArrowDown") {
+            e.preventDefault();
+        }
+    }
+        </script>
 
+        <!-- Bootstrap JS & SweetAlert2 -->
 
-
-        <!-- Bootstrap JS -->
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
     </html>

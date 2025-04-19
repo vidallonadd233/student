@@ -55,7 +55,17 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
                             <!-- Guest: Student Login -->
                             <li><a class="dropdown-item" href="{{ route('logins.form') }}">Student</a></li>
-                            <li><a class="dropdown-item" href="{{ route('login') }}">Admin</a></li>
+                            @auth
+                            @if(Auth::user()->is_admin)
+                                <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Admin</a>
+                            @else
+                                <!-- Optionally, you can show something else or nothing at all -->
+                                <!-- <a class="dropdown-item" href="#">You are not an Admin</a> -->
+                            @endif
+                        @else
+                            <!-- If not authenticated, show a login link or any other relevant link -->
+                            <a class="dropdown-item" href="{{ route('login') }}">Admin</a>
+                        @endauth
                         </ul>
                     </li>
                 </ul>

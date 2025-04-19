@@ -23,11 +23,7 @@
                 <td>{{ $student->gender }}</td>
                 <td>
                     <a href="{{ route('students.restore', $student->id) }}" class="btn btn-success">Restore</a>
-                    <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Permanently Delete</button>
-                    </form>
+
                 </td>
             </tr>
             @endforeach
